@@ -31,9 +31,6 @@ aaa
 <br/><br/>
 
 
-## BibTeX
-
-<br/><br/>
 
 ## Acknowledgements
 This implementation is based on guan-meng's [gnerf].
