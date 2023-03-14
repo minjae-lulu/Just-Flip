@@ -1,9 +1,8 @@
 # Just Flip: Flipped Observation Generation and Optimization for Neural Radiance Fields to Cover Unobserved View
 
-### **This is a prototype version and will be updated to a more user-friendly version for future execution.**
 <br/>
+This is a prototype version and will be updated to a more user-friendly version for future execution. Our data agumentation approach is flippimg observed images, and estimating flipped camera 6DoF poses.
 
-Implementation of our method. Our data agumentation approach is flippimg observed images, and estimating flipped camera 6DoF poses.
 <br/>
 
 ## Overview
@@ -34,6 +33,7 @@ cv2.imwrite('flipped_image.png', flipped_image)
 <br/>
 
 ## Pose estimation
+This code is about estimating flipped camera poses using existing camera coordinates.
 ```
 import numpy as np
 import math
@@ -152,10 +152,6 @@ def Find_Optimal_CameraPose (X_cordi, Y_cordi, Z_cordi):
     return flipped_camera_pose_set
 ```
  <br>
-
-
-
-<br/><br/>
 
 
 
