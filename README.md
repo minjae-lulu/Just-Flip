@@ -16,6 +16,12 @@ Our baseline model is gnerf. So follow the instructions for setting up the envir
 
 [barf]: https://github.com/chenhsuanlin/bundle-adjusting-NeRF
 
+<br/>
+
+## Dataset
+We used NeRF synthethic dataset. Download it through the official link [here]. Or you can use your own dataset.
+
+[here]: https://drive.google.com/drive/folders/128yBriW1IG_3NJ5Rp7APSTZsJqdJdfc1
 
 <br/>
 
