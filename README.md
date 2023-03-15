@@ -21,7 +21,6 @@ Or you can use your own dataset.
 ## Enviroment setup
 
 Since our baseline is gnerf, we will set up the environment to be the same as gnerf. Our approach is applicable to other models as well, and camera pose optimization can be applied to general nerf models for synthetic nerf datasets.
-
 ```
 # Create a conda environment named 'just_flip'
 conda create --name just_flip python=3.7
@@ -53,7 +52,7 @@ If you wish to monitor the training progress, you can do so with tensorboard by 
 python eval.py --ckpt PATH/TO/CKPT.pt --gt PATH/TO/GT.json 
 ```
 
-where you replace PATH/TO/CKPT.pt with your trained model checkpoint, and PATH/TO/GT.json with the json file in NeRF-Synthetic dataset. Then, just run the  [ATE toolbox](https://github.com/uzh-rpg/rpg_trajectory_evaluation) on the `evaluation` directory.
+where you replace PATH/TO/CKPT.pt with your trained model checkpoint, and PATH/TO/GT.json with the json file in NeRF-Synthetic dataset. Then, just run the [ATE toolbox](https://github.com/uzh-rpg/rpg_trajectory_evaluation) on the evaluation directory.
 
 <br/>
 
