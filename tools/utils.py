@@ -3,6 +3,7 @@ import matplotlib
 import torch
 import numpy as np
 from PIL import Image
+import math
 from torchvision.transforms import ToTensor
 
 matplotlib.use('Agg')
@@ -115,3 +116,105 @@ def plot_camera_scene(c2w, c2w_gt=None, plot_radius=5.0, status=''):
     img = ToTensor()(img)
 
     return img
+
+
+
+
+
+# X_cordi, Y_codri, Z_cordi  # input camera coordinatesare defined by FloatTensor
+# Ax + By + Cz + D = 0 are symmetric plane equation
+
+def Find_Optimal_Sphere(X_cordi,Y_cordi,Z_cordi):
+    A = np.zeros((len(X_cordi),4))
+    A[:,0] = X_cordi*2
+    A[:,1] = Y_cordi*2
+    A[:,2] = Z_cordi*2
+    A[:,3] = 1
+    
+    f = torch.zeros((len(X_cordi),1))
+    f[:,0] = (X_cordi*X_cordi) + (Y_cordi*Y_cordi) + (Z_cordi*Z_cordi)
+    C, residules, rank, singval = np.linalg.lstsq(A,f)
+    
+    radius2 = (C[0]*C[0])+(C[1]*C[1])+(C[2]*C[2])+C[3]
+    radius = math.sqrt(radius2)
+
+    return radius, C[0], C[1], C[2]
+
+
+def Symmetrically_Transforming(X_cordi,Y_cordi,Z_cordi, A,B,C,D):
+    X_flipped_cordi = []
+    Y_flipped_cordi = []
+    Z_flipped_cordi = []
+    
+    for i in range(len(X_cordi)):
+        X_flipped_cordi.append(X_cordi[i] + 2*A*(-(A*X_cordi[i] + B*Y_cordi[i] + C*Z_cordi[i] + D)/(A*A+B*B+C*C)))
+        Y_flipped_cordi.append(Y_cordi[i] + 2*B*(-(A*X_cordi[i] + B*Y_cordi[i] + C*Z_cordi[i] + D)/(A*A+B*B+C*C)))
+        Z_flipped_cordi.append(Z_cordi[i] + 2*C*(-(A*X_cordi[i] + B*Y_cordi[i] + C*Z_cordi[i] + D)/(A*A+B*B+C*C)))
+    
+    X_flipped_cordi = torch.FloatTensor(X_flipped_cordi)
+    Y_flipped_cordi = torch.FloatTensor(Y_flipped_cordi)
+    Z_flipped_cordi = torch.FloatTensor(Z_flipped_cordi)
+
+    return X_flipped_cordi, Y_flipped_cordi, Z_flipped_cordi
+
+
+def Projection2Sphere(x,y,z, x0,y0,z0,r):
+    a = x*x + y*y + z*z
+    b = x*x0 + y*y0 + z*z0 
+    c = x0*x0 + y0*y0 + z0*z0 -r*r
+    
+    alpha1 = (-b + math.sqrt(b*b - 4*a*c) )/(2*a)
+    alpha2 = (-b - math.sqrt(b*b - 4*a*c) )/(2*a)
+    
+    if abs(alpha1-1) > abs(alpha2-1):
+        alpha = alpha2
+    else:
+        alpha = alpha1
+    
+    return alpha*x, alpha*y, alpha*z
+    
+    
+up = torch.FloatTensor([0,0,1])
+def Get_Transform_Matrics(x,y,z, x0,y0,z0, up):
+    # c = torch.FloatTensor([x,y,z])
+    c = torch.stack([x,y,z])
+    c = c.squeeze()
+    at = torch.FloatTensor([x0,y0,z0])
+    at = at.squeeze()
+    
+    torch0 = torch.FloatTensor([0.])
+    temp = torch.FloatTensor([0,0,0,1])
+
+    z_axis = (c-at) / torch.norm(c-at)
+    x_axis = torch.cross(up, z_axis) / torch.norm(torch.cross(up, z_axis))
+    y_axis = torch.cross(z_axis,x_axis)
+    
+    z = torch.cat([z_axis, torch0])
+    x = torch.cat([x_axis, torch0])
+    y = torch.cat([y_axis, torch0])
+    
+    rotation_mat = torch.stack([x, y, z, temp], dim=-1)
+    translation_mat = torch.eye(4)
+    translation_mat[:3,3] = c 
+    transform_mat = torch.matmul(translation_mat, rotation_mat) 
+      
+    return transform_mat
+
+
+A = 0; B = 1; C = 0; D = 0
+up = torch.FloatTensor([0,0,1])
+def Find_Optimal_CameraPose (X_cordi, Y_cordi, Z_cordi):
+    flipped_camera_pose_set = []
+    
+    r, x0, y0, z0 = Find_Optimal_Sphere(X_cordi,Y_cordi,Z_cordi)
+    X_flipped_cordi, Y_flipped_cordi, Z_flipped_cordi = Symmetrically_Transforming(X_cordi,Y_cordi,Z_cordi, A,B,C,D)
+    
+    for i in range(len(X_cordi)):
+        X_optim, Y_optim, Z_optim = Projection2Sphere(X_flipped_cordi[i], Y_flipped_cordi[i], Z_flipped_cordi[i], x0,y0,z0,r)
+        transform_mat = Get_Transform_Matrics(X_optim.float(), Y_optim.float(), Z_optim.float(), x0,y0,z0, up)
+        flipped_camera_pose_set.append(transform_mat)
+        
+    return flipped_camera_pose_set
+
+
+
