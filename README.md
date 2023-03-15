@@ -66,7 +66,7 @@ By using the function Find_Optimal_CameraPose defined in utils.py, we can modify
 
 
 ## Result
-Quantitative comparisons of our flip methods with baseline method and baseline with ground-truth method on the NeRF synthetic dataset. Ground-truth image is an image observed from a viewpoint that the robot has not explored. Our method shows improved performance, even without estimating the flipped camera poses. In addition, we demonstrate that applying camera pose estimation to flipped images yields a more substantial improvement in performance compared to using the simple flip method.
+
 |Scene|||PSNR||||SSIM||||LPIPS||
 |----|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 ||Base|Ours|Ours+Pose|Base+GT|Base|Ours|Ours+Pose|Base+GT|Base|Ours|Ours+Pose|Base+GT|
@@ -77,6 +77,8 @@ Quantitative comparisons of our flip methods with baseline method and baseline w
 |Materials |15.24|15.87|**16.88**|17.42|0.66|**0.68**|0.80|0.81|0.42|0.42|**0.29**|0.30|
 |Ship      |10.67|10.93|**17.98**|23.59|0.63|**0.64**|0.72|0.85|0.54|0.51|**0.31**|0.16|
 |Mean      |13.11|13.81|**16.32**|19.32|0.68|**0.73**|0.77|0.84|0.43|0.38|**0.30**|0.21|
+
+Quantitative comparisons of our flip methods with baseline method and baseline with ground-truth method on the NeRF synthetic dataset. Ground-truth image is an image observed from a viewpoint that the robot has not explored. Our method shows improved performance, even without estimating the flipped camera poses. In addition, we demonstrate that applying camera pose estimation to flipped images yields a more substantial improvement in performance compared to using the simple flip method.
 
 <br>
 
