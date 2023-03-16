@@ -57,13 +57,6 @@ where you replace PATH/TO/CKPT.pt with your trained model checkpoint, and PATH/T
 <br/>
 
 
-
-## Find Optimal CameraPose
-By using the function Find_Optimal_CameraPose defined in utils.py, we can modify the init_poses_embed in posemodel.py to enable flip method and pose optimization.
-
-<br/>
-
-
 ## Result
 
 |Scene|||PSNR||||SSIM||||LPIPS||
