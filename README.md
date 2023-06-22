@@ -6,7 +6,8 @@ Author : Minjae Lee, Kyeongsu Kang and Hyeonwoo Yu
 
 ## Overview
 <img src="figs/overview.jpeg"  width="800" height="250">
-(Left) the baseline approach where the robot only observes one side of an object while driving. This case does not yield good rendering results in unobserved views that the robot has not explored. (Right) our method generates the flipped observations from the actual observations. The robot exploits both input images and flipped images and estimated camera poses to learn 3D space using NeRF for unexplored regions as well. Our method obtains qualified rendering results in unobserved views, even without providing images from unobserved views as a training set.
+
+(Left) In the conventional approach, the robot merely scans one facet of an object while in motion. This method, however, fails to render a satisfactory result from angles that the robot has yet to explore. (Right) Our unique method takes actual observations and produces their mirror images. By utilizing both the original and reflected images along with inferred camera positions, the robot learns to understand the 3D space through NeRF, even in unchartered territories. This novel technique allows us to achieve high-quality rendering results from previously unobserved perspectives, even without using images from these angles in our training set.
 
 <br/>
 
