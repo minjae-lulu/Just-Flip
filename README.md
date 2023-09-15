@@ -18,6 +18,8 @@ Author : Minjae Lee, Kyeongsu Kang and Hyeonwoo Yu
 <img src="figs/lego_original.gif" width="256" height="256"/><img src="figs/lego_our.gif" width="256" height="256"/><img src="figs/lego_upper.gif" width="256" height="256"/>
 
 
+<img src="figs/ficus_original.gif" width="256" height="256"/><img src="figs/ficus_our.gif" width="256" height="256"/><img src="figs/ficus_upper.gif" width="256" height="256"/>
+
 
 <br/>
 
