@@ -15,9 +15,7 @@ Author : Minjae Lee, Kyeongsu Kang and Hyeonwoo Yu
 
 (Left) Original method (Middle) Our method (Right) Upper method
 
-<img src="figs/lego_original.gif" width="256" height="256"/>
-<img src="figs/lego_our.gif" width="256" height="256"/>
-<img src="figs/lego_upper.gif" width="256" height="256"/>
+<img src="figs/lego_original.gif" width="256" height="256"/><img src="figs/lego_our.gif" width="256" height="256"/><img src="figs/lego_upper.gif" width="256" height="256"/>
 
 
 
