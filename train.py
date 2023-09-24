@@ -28,6 +28,7 @@ def main():
         m.setup_visualizer(opt)
 
         m.train(opt)
+        m.evaluate_full(opt)
 
 if __name__=="__main__":
     main()
