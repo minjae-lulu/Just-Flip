@@ -1,6 +1,6 @@
 # Just Flip: Flipped Observation Generation and Optimization for Neural Radiance Fields to Cover Unobserved View
 
-Author : Minjae Lee, Kyeongsu Kang and Hyeonwoo Yu
+Author : Sibeak Lee, Kyeongsu Kang and Hyeonwoo Yu
 
 <br/>
 
